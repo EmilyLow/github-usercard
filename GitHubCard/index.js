@@ -36,7 +36,6 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -58,18 +57,35 @@ const followersArray = [];
     </div>
 */
 
+/*
+  List of LS Instructors Github username's:
+    tetondan
+    dustinmyers
+    justsml
+    luishrd
+    bigknell
+*/
 const cards = document.querySelector(".cards");
 
-const request = axios
-.get("https://api.github.com/users/emilylow")
-.then( (result) => {
-  console.log("Result: ", result);
- // console.log(makeCard(result));
-  cards.append(makeCard(result));
-})
-.catch((err) => {
-  console.log("There was an error: ", err);
+const followersArray = ["emilylow", "tetondan", "dustinmyers", "justsml", "luishrd", "bigknell" ];
+
+followersArray.forEach((person) => {
+  const request = axios
+  .get("https://api.github.com/users/" + person)
+  .then( (result) => {
+    //console.log("Result: ", result);
+  // console.log(makeCard(result));
+    cards.append(makeCard(result));
+  })
+  .catch((err) => {
+    console.log("There was an error: ", err);
+  });
+
+
+
 });
+
+
 
 function makeCard(input) {
 
@@ -100,7 +116,6 @@ function makeCard(input) {
   cardInfo.appendChild(location);
   cardInfo.appendChild(profile);
   
-  console.log(profile);
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
