@@ -3,7 +3,7 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+const info = axios.get("https://api.github.com/users/emilylow");
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -11,7 +11,8 @@
 
     Skip to STEP 3.
 */
-
+console.log(info);
+  
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
@@ -49,6 +50,38 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function makeCard(input) {
+
+  let cardParent = document.createElement('div');
+  let profileImg = document.createElement('img');
+
+  let cardInfo = document.createElement('div');
+  let name = document.createElement('h3');
+  let username = document.createElement('p');
+  let location = document.createElement('p');
+  let profile = document.createElement('p');
+  let bioLoc = document.createElement('a');
+  let followers = document.createElement('p');
+  let following = document.createElement('p');
+  let bio = document.createElement.apply('p');
+  
+  
+  cardParent.appendChild(profileImg);
+  cardParent.appendChild(cardInfo);
+
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  //Unsure about this line
+  profile.appendChild(bioLoc);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  name.textContent = input["data"]["name"];
+}
 
 /*
   List of LS Instructors Github username's:
