@@ -65,6 +65,9 @@
     luishrd
     bigknell
 */
+
+
+//Non-stretch version
 const cards = document.querySelector(".cards");
 
 const followersArray = ["emilylow", "tetondan", "dustinmyers", "justsml", "luishrd", "bigknell" ];
@@ -126,8 +129,9 @@ function makeCard(input) {
   location.textContent = "Location: " + input["data"]["location"];
   
 
-  profLink.textContent = input["data"]["url"];
-  profLink.href = input["data"]["url"];
+  profLink.textContent = input["data"]["html_url"];
+  console.log(input["data"]["url"]);
+  profLink.href = input["data"]["html_url"];
 
   profile.textContent = "Profile: ";
   //Noteable that I need to appendChild after content is added here, because textContent overrides existing children apparently
@@ -141,12 +145,6 @@ function makeCard(input) {
 }
 
 
-
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+//Stretch Version Attempt
+//Same as above version, but modified. Above version works. 
+//Also I should check if there is an easier way to do this than commenting everything out. 
