@@ -64,8 +64,8 @@ const request = axios
 .get("https://api.github.com/users/emilylow")
 .then( (result) => {
   console.log("Result: ", result);
-  console.log(makeCard(result));
-
+ // console.log(makeCard(result));
+  cards.append(makeCard(result));
 })
 .catch((err) => {
   console.log("There was an error: ", err);
@@ -74,11 +74,15 @@ const request = axios
 function makeCard(input) {
 
   let cardParent = document.createElement('div');
+  cardParent.classList.add("card");
   let profileImg = document.createElement('img');
 
   let cardInfo = document.createElement('div');
+  cardInfo.classList.add("card-info");
   let name = document.createElement('h3');
+  name.classList.add("name");
   let username = document.createElement('p');
+  username.classList.add("username");
   let location = document.createElement('p');
   let profile = document.createElement('p');
   let profLink = document.createElement('a');
@@ -86,6 +90,7 @@ function makeCard(input) {
   let following = document.createElement('p');
   let bio = document.createElement('p');
   
+
   
   cardParent.appendChild(profileImg);
   cardParent.appendChild(cardInfo);
@@ -94,18 +99,25 @@ function makeCard(input) {
   cardInfo.appendChild(username);
   cardInfo.appendChild(location);
   cardInfo.appendChild(profile);
-  //Unsure about this line
-  profile.appendChild(profLink);
+  
+  console.log(profile);
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
 
+  profileImg.src = input["data"]["avatar_url"];
   name.textContent = input["data"]["name"];
   username.textContent = input["data"]["login"];
   location.textContent = "Location: " + input["data"]["location"];
-  profile.textContent = "Profile:";
-  //Is this right?
-  profLink.src = input["data"]["url"];
+  
+
+  profLink.textContent = input["data"]["url"];
+  profLink.href = input["data"]["url"];
+
+  profile.textContent = "Profile: ";
+  //Noteable that I need to appendChild after content is added here, because textContent overrides existing children apparently
+  profile.appendChild(profLink);
+  
   followers.textContent = "Followers: " + input["data"]["followers"];
   following.textContent = "Following: " + input["data"]["following"];
   bio.textContent = "Bio: " + input["data"]["bio"];
