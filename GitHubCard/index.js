@@ -1,9 +1,16 @@
+//Question: Why were the steps out of order? Is order in this code important? Like, was it important that the card maker was at the end, after the array and GET request?
+
+
+
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-const info = axios.get("https://api.github.com/users/emilylow");
+
+//Should I be making this a promise? A promise isn't actually mentioned in the instructions anywhre but maybe its implied?
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -11,7 +18,7 @@ const info = axios.get("https://api.github.com/users/emilylow");
 
     Skip to STEP 3.
 */
-console.log(info);
+
   
 /*
   STEP 4: Pass the data received from Github into your function,
@@ -51,6 +58,19 @@ const followersArray = [];
     </div>
 */
 
+const cards = document.querySelector(".cards");
+
+const request = axios
+.get("https://api.github.com/users/emilylow")
+.then( (result) => {
+  console.log("Result: ", result);
+  console.log(makeCard(result));
+
+})
+.catch((err) => {
+  console.log("There was an error: ", err);
+});
+
 function makeCard(input) {
 
   let cardParent = document.createElement('div');
@@ -64,7 +84,7 @@ function makeCard(input) {
   let profLink = document.createElement('a');
   let followers = document.createElement('p');
   let following = document.createElement('p');
-  let bio = document.createElement.apply('p');
+  let bio = document.createElement('p');
   
   
   cardParent.appendChild(profileImg);
@@ -89,7 +109,11 @@ function makeCard(input) {
   followers.textContent = "Followers: " + input["data"]["followers"];
   following.textContent = "Following: " + input["data"]["following"];
   bio.textContent = "Bio: " + input["data"]["bio"];
+
+  return cardParent;
 }
+
+
 
 /*
   List of LS Instructors Github username's:
