@@ -61,7 +61,7 @@ function makeCard(input) {
   let username = document.createElement('p');
   let location = document.createElement('p');
   let profile = document.createElement('p');
-  let bioLoc = document.createElement('a');
+  let profLink = document.createElement('a');
   let followers = document.createElement('p');
   let following = document.createElement('p');
   let bio = document.createElement.apply('p');
@@ -75,12 +75,20 @@ function makeCard(input) {
   cardInfo.appendChild(location);
   cardInfo.appendChild(profile);
   //Unsure about this line
-  profile.appendChild(bioLoc);
+  profile.appendChild(profLink);
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
 
   name.textContent = input["data"]["name"];
+  username.textContent = input["data"]["login"];
+  location.textContent = "Location: " + input["data"]["location"];
+  profile.textContent = "Profile:";
+  //Is this right?
+  profLink.src = input["data"]["url"];
+  followers.textContent = "Followers: " + input["data"]["followers"];
+  following.textContent = "Following: " + input["data"]["following"];
+  bio.textContent = "Bio: " + input["data"]["bio"];
 }
 
 /*
