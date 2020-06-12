@@ -67,10 +67,67 @@
 */
 
 
-//Non-stretch version
+
 const cards = document.querySelector(".cards");
 
+//Normal input data, entering users manually
 const followersArray = ["emilylow", "tetondan", "dustinmyers", "justsml", "luishrd", "bigknell" ];
+
+//Stretch input data, requesting followers
+
+//Using someone else because I don't have any followers
+// const originalPerson = "tetondan";
+
+
+// let followersArray = [];
+
+// //Requesting original person data
+
+// const originalPersonRequest = axios
+// .get("https://api.github.com/users/" + originalPerson)
+// .then( (result) => {
+//   //console.log(result);
+//   //Request followers data
+//   const followersRequest = axios
+//   .get(result["data"]["followers_url"])
+//   .then( (subResult) => {
+    
+//     followersArray = subResult["data"];
+//     console.log(followersArray);
+//     //Adding elements to page from array
+//     // followersArray.forEach((person) => {
+//     //   const request = axios
+//     //   .get("https://api.github.com/users/" + person)
+//     //   .then( (result) => {
+//     //     //console.log("Result: ", result);
+//     //   // console.log(makeCard(result));
+//     //     cards.append(makeCard(result));
+//     //   })
+//     //   .catch((err) => {
+//     //     console.log("There was an error: ", err);
+//     //   });
+
+    
+//     // });
+
+
+
+//   })
+//   .catch((err) => {
+//         console.log("There was an error pulling follower data: ", err);
+//       });
+  
+
+// })
+// .catch((err) => {
+//   console.log("There was an error pulling original user data: ", err);
+// });
+
+
+// Stretch content ended
+
+
+//Adding elements to page
 
 followersArray.forEach((person) => {
   const request = axios
@@ -84,9 +141,9 @@ followersArray.forEach((person) => {
     console.log("There was an error: ", err);
   });
 
-
-
 });
+
+
 
 
 
@@ -144,7 +201,3 @@ function makeCard(input) {
   return cardParent;
 }
 
-
-//Stretch Version Attempt
-//Same as above version, but modified. Above version works. 
-//Also I should check if there is an easier way to do this than commenting everything out. 
