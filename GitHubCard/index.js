@@ -70,10 +70,30 @@
 
 const cards = document.querySelector(".cards");
 
-//Normal input data, entering users manually
+//Non-stretch input and call
 const followersArray = ["emilylow", "tetondan", "dustinmyers", "justsml", "luishrd", "bigknell" ];
 
-//Stretch input data, requesting followers
+//Adding elements to page
+
+followersArray.forEach((person) => {
+  const request = axios
+  .get("https://api.github.com/users/" + person)
+  .then( (result) => {
+    //console.log("Result: ", result);
+  // console.log(makeCard(result));
+    cards.append(makeCard(result));
+  })
+  .catch((err) => {
+    console.log("There was an error: ", err);
+  });
+
+});
+
+
+
+
+
+//Stretch input and call
 
 //Using someone else because I don't have any followers
 // const originalPerson = "tetondan";
@@ -94,14 +114,20 @@ const followersArray = ["emilylow", "tetondan", "dustinmyers", "justsml", "luish
     
 //     followersArray = subResult["data"];
 //     console.log(followersArray);
-//     //Adding elements to page from array
-//     // followersArray.forEach((person) => {
+        // let shortFollowArray = [];
+        // //Getting first five elements of array, and then grabbing their first names
+        // for(let i = 0; i < 5; i++) {
+        //   shortFollowArray[i] = followersArray[i]["data"]["username"];
+          
+        // }
+//     //Adding elements to page from array, I believe the error is here, as the array has more than strings
+//     // shortFollowArray.forEach((person) => {
 //     //   const request = axios
 //     //   .get("https://api.github.com/users/" + person)
-//     //   .then( (result) => {
-//     //     //console.log("Result: ", result);
-//     //   // console.log(makeCard(result));
-//     //     cards.append(makeCard(result));
+//     //   .then( (result3) => {
+//     //     //console.log("Result: ", result3);
+//     //   // console.log(makeCard(result3));
+//     //     cards.append(makeCard(result3));
 //     //   })
 //     //   .catch((err) => {
 //     //     console.log("There was an error: ", err);
@@ -109,8 +135,6 @@ const followersArray = ["emilylow", "tetondan", "dustinmyers", "justsml", "luish
 
     
 //     // });
-
-
 
 //   })
 //   .catch((err) => {
@@ -127,21 +151,6 @@ const followersArray = ["emilylow", "tetondan", "dustinmyers", "justsml", "luish
 // Stretch content ended
 
 
-//Adding elements to page
-
-followersArray.forEach((person) => {
-  const request = axios
-  .get("https://api.github.com/users/" + person)
-  .then( (result) => {
-    //console.log("Result: ", result);
-  // console.log(makeCard(result));
-    cards.append(makeCard(result));
-  })
-  .catch((err) => {
-    console.log("There was an error: ", err);
-  });
-
-});
 
 
 
