@@ -1,8 +1,15 @@
+//Question: Why were the steps out of order? Is order in this code important? Like, was it important that the card maker was at the end, after the array and GET request?
+
+
+
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+//Should I be making this a promise? A promise isn't actually mentioned in the instructions anywhre but maybe its implied?
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -12,6 +19,7 @@
     Skip to STEP 3.
 */
 
+  
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
@@ -28,7 +36,6 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -58,3 +65,148 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+
+
+const cards = document.querySelector(".cards");
+
+//Non-stretch input and call
+const followersArray = ["emilylow", "tetondan", "dustinmyers", "justsml", "luishrd", "bigknell" ];
+
+//Adding elements to page
+
+followersArray.forEach((person) => {
+  const request = axios
+  .get("https://api.github.com/users/" + person)
+  .then( (result) => {
+    //console.log("Result: ", result);
+  // console.log(makeCard(result));
+    cards.append(makeCard(result));
+  })
+  .catch((err) => {
+    console.log("There was an error: ", err);
+  });
+
+});
+
+
+
+
+
+//Stretch input and call
+
+//Using someone else because I don't have any followers
+// const originalPerson = "tetondan";
+
+
+// let followersArray = [];
+
+// //Requesting original person data
+
+// const originalPersonRequest = axios
+// .get("https://api.github.com/users/" + originalPerson)
+// .then( (result) => {
+//   //console.log(result);
+//   //Request followers data
+//   const followersRequest = axios
+//   .get(result["data"]["followers_url"])
+//   .then( (subResult) => {
+    
+//     followersArray = subResult["data"];
+//     console.log(followersArray);
+        // let shortFollowArray = [];
+        // //Getting first five elements of array, and then grabbing their first names
+        // for(let i = 0; i < 5; i++) {
+        //   shortFollowArray[i] = followersArray[i]["data"]["username"];
+          
+        // }
+//     //Adding elements to page from array, I believe the error is here, as the array has more than strings
+//     // shortFollowArray.forEach((person) => {
+//     //   const request = axios
+//     //   .get("https://api.github.com/users/" + person)
+//     //   .then( (result3) => {
+//     //     //console.log("Result: ", result3);
+//     //   // console.log(makeCard(result3));
+//     //     cards.append(makeCard(result3));
+//     //   })
+//     //   .catch((err) => {
+//     //     console.log("There was an error: ", err);
+//     //   });
+
+    
+//     // });
+
+//   })
+//   .catch((err) => {
+//         console.log("There was an error pulling follower data: ", err);
+//       });
+  
+
+// })
+// .catch((err) => {
+//   console.log("There was an error pulling original user data: ", err);
+// });
+
+
+// Stretch content ended
+
+
+
+
+
+
+
+function makeCard(input) {
+
+  let cardParent = document.createElement('div');
+  cardParent.classList.add("card");
+  let profileImg = document.createElement('img');
+
+  let cardInfo = document.createElement('div');
+  cardInfo.classList.add("card-info");
+  let name = document.createElement('h3');
+  name.classList.add("name");
+  let username = document.createElement('p');
+  username.classList.add("username");
+  let location = document.createElement('p');
+  let profile = document.createElement('p');
+  let profLink = document.createElement('a');
+  let followers = document.createElement('p');
+  let following = document.createElement('p');
+  let bio = document.createElement('p');
+  
+
+  
+  cardParent.appendChild(profileImg);
+  cardParent.appendChild(cardInfo);
+
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  profileImg.src = input["data"]["avatar_url"];
+  name.textContent = input["data"]["name"];
+  username.textContent = input["data"]["login"];
+  location.textContent = "Location: " + input["data"]["location"];
+  
+
+  profLink.textContent = input["data"]["html_url"];
+  console.log(input["data"]["url"]);
+  profLink.href = input["data"]["html_url"];
+
+  profile.textContent = "Profile: ";
+  //Noteable that I need to appendChild after content is added here, because textContent overrides existing children apparently
+  profile.appendChild(profLink);
+  
+  followers.textContent = "Followers: " + input["data"]["followers"];
+  following.textContent = "Following: " + input["data"]["following"];
+  bio.textContent = "Bio: " + input["data"]["bio"];
+
+  return cardParent;
+}
+
